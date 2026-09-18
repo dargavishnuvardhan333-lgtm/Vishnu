@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manu | Influencer</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #fff7ed 0%, #eff6ff 48%, #f0fdf4 100%);
+      color: #1f2937;
+    }
+
+    header,
+    section,
+    footer {
+      position: relative;
+      z-index: 1;
+    }
+
+    .background-flow {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .glass-flow {
+      position: absolute;
+      display: flex;
+      gap: 34px;
+      width: max-content;
+      padding: 18px 28px;
+      border: 1px solid rgba(255, 255, 255, 0.65);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.22);
+      box-shadow: 0 18px 45px rgba(37, 99, 235, 0.08);
+      backdrop-filter: blur(12px);
+      color: rgba(30, 64, 175, 0.28);
+      font-size: 1.2rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+
+    .glass-flow span {
+      transform: translateZ(0);
+    }
+
+    .flow-one {
+      top: 28%;
+      left: -20%;
+      transform: rotate(-7deg);
+      animation: flow-left 24s linear infinite;
+    }
+
+    .flow-two {
+      top: 66%;
+      right: -25%;
+      transform: rotate(6deg);
+      color: rgba(22, 101, 52, 0.25);
+      animation: flow-right 28s linear infinite;
+    }
+
+    @keyframes flow-left {
+      to { translate: -35vw 0; }
+    }
+
+    @keyframes flow-right {
+      to { translate: 35vw 0; }
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: #0f172a;
+      color: white;
+      padding: 18px 0;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.9rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: #f97316;
+    }
+
+    nav {
+      display: flex;
+      gap: 24px;
+    }
+
+    nav a {
+      color: #dbeafe;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .hero {
+      padding: 90px 0 70px;
+    }
+
+    .hero-box {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      align-items: center;
+      gap: 30px;
+    }
+
+    h1 {
+      font-size: 3.2rem;
+      line-height: 1.1;
+      margin: 0 0 20px;
+      color: #111827;
+    }
+
+    .highlight {
+      color: #e11d48;
+    }
+
+    .subtitle {
+      font-size: 1.08rem;
+      color: #475569;
+      line-height: 1.8;
+      margin-bottom: 25px;
+    }
+
+    .btns {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 26px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s ease;
+    }
+
+    .btn-primary {
+      background: #e11d48;
+      color: white;
+      box-shadow: 0 10px 20px rgba(37, 99, 235, 0.25);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #0f172a;
+      border: 1px solid #cbd5e1;
+    }
+
+    .card {
+      background: white;
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+    }
+
+    .interactive-card {
+      position: relative;
+      min-height: 280px;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transition: transform 0.18s ease-out;
+      animation: card-float 5s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    .creator-image {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin-bottom: 20px;
+      opacity: 0.88;
+      box-shadow: 0 14px 28px rgba(15, 23, 42, 0.16);
+      transform: translateZ(28px);
+    }
+
+    .interactive-card::before,
+    .interactive-card::after {
+      content: "";
+      position: absolute;
+      border: 2px solid rgba(37, 99, 235, 0.2);
+      border-radius: 50%;
+      pointer-events: none;
+      transform-style: preserve-3d;
+    }
+
+    .interactive-card::before {
+      width: 230px;
+      height: 90px;
+      right: -45px;
+      bottom: 30px;
+      transform: translateZ(-30px) rotateX(66deg) rotateZ(-18deg);
+      animation: orbit 8s linear infinite;
+    }
+
+    .interactive-card::after {
+      width: 130px;
+      height: 130px;
+      right: 30px;
+      top: -45px;
+      border-color: rgba(34, 197, 94, 0.25);
+      transform: translateZ(-20px) rotateY(65deg);
+      animation: orbit-reverse 6s linear infinite;
+    }
+
+    .color-orbit {
+      position: absolute;
+      z-index: 0;
+      left: 50%;
+      top: 50%;
+      width: 170px;
+      height: 72px;
+      border: 3px solid;
+      border-radius: 50%;
+      pointer-events: none;
+      transform-style: preserve-3d;
+    }
+
+    .color-orbit.cyan {
+      border-color: #06b6d4;
+      transform: translate(-50%, -50%) translateZ(5px) rotateX(68deg) rotateZ(12deg);
+      animation: color-spin-one 7s linear infinite;
+    }
+
+    .color-orbit.orange {
+      border-color: #f97316;
+      transform: translate(-50%, -50%) translateZ(20px) rotateX(68deg) rotateZ(-28deg) scale(0.84);
+      animation: color-spin-two 5s linear infinite;
+    }
+
+    .color-orbit.pink {
+      border-color: #ec4899;
+      transform: translate(-50%, -50%) translateZ(35px) rotateY(68deg) rotateZ(16deg) scale(0.7);
+      animation: color-spin-three 6s linear infinite;
+    }
+
+    .color-core {
+      position: absolute;
+      z-index: 0;
+      left: 50%;
+      top: 50%;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #facc15, #f97316 45%, #ec4899);
+      box-shadow: 0 0 28px rgba(249, 115, 22, 0.55);
+      transform: translate(-50%, -50%) translateZ(50px);
+      animation: core-pulse 2.4s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes color-spin-one {
+      to { rotate: 360deg; }
+    }
+
+    @keyframes color-spin-two {
+      to { rotate: -360deg; }
+    }
+
+    @keyframes color-spin-three {
+      to { rotate: 360deg; }
+    }
+
+    @keyframes core-pulse {
+      50% { scale: 1.35; opacity: 0.72; }
+    }
+
+    .interactive-card > * {
+      position: relative;
+      z-index: 1;
+      transform: translateZ(35px);
+    }
+
+    @keyframes card-float {
+      0%, 100% { translate: 0 0; }
+      50% { translate: 0 -9px; }
+    }
+
+    @keyframes orbit {
+      to { rotate: 360deg; }
+    }
+
+    @keyframes orbit-reverse {
+      to { rotate: -360deg; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .interactive-card,
+      .interactive-card::before,
+      .interactive-card::after,
+      .color-orbit,
+      .color-core {
+        animation: none;
+      }
+    }
+
+    .card h3 {
+      margin-top: 0;
+      font-size: 1.5rem;
+      color: #111827;
+    }
+
+    .card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      color: #374151;
+      line-height: 2;
+    }
+
+    .card li::before {
+      content: "✓ ";
+      color: #16a34a;
+      font-weight: bold;
+    }
+
+    .section {
+      padding: 80px 0;
+    }
+
+    .section h2 {
+      text-align: center;
+      font-size: 2.6rem;
+      margin-bottom: 14px;
+      color: #111827;
+    }
+
+    .section p {
+      text-align: center;
+      color: #64748b;
+      max-width: 700px;
+      margin: 0 auto 40px;
+    }
+
+    .instagram-profile {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 20px 24px;
+      border: 1px solid rgba(225, 29, 72, 0.2);
+      border-radius: 18px;
+      background: linear-gradient(110deg, rgba(254, 243, 199, 0.8), rgba(253, 242, 248, 0.9), rgba(239, 246, 255, 0.9));
+      box-shadow: 0 14px 30px rgba(225, 29, 72, 0.08);
+      text-align: left;
+    }
+
+    .instagram-profile strong,
+    .instagram-profile span,
+    .instagram-handle {
+      display: block;
+    }
+
+    .instagram-profile strong {
+      color: #be123c;
+      font-size: 1.1rem;
+    }
+
+    .instagram-profile span {
+      margin-top: 5px;
+      color: #475569;
+    }
+
+    .instagram-handle {
+      color: #475569;
+      text-decoration: none;
+    }
+
+    .instagram-handle:hover {
+      color: #e11d48;
+      text-decoration: underline;
+    }
+
+    .instagram-link {
+      flex-shrink: 0;
+      padding: 11px 16px;
+      border-radius: 999px;
+      background: linear-gradient(100deg, #f97316, #e11d48, #7c3aed);
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .feature {
+      background: white;
+      border-radius: 20px;
+      padding: 28px 22px;
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.05);
+      text-align: center;
+    }
+
+    .feature-icon {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 18px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      background: #fef3c7;
+      color: #c2410c;
+    }
+
+    .feature h3 {
+      margin: 0 0 10px;
+      color: #111827;
+    }
+
+    .feature p {
+      margin: 0;
+      text-align: center;
+      color: #64748b;
+    }
+
+    .contact {
+      background: linear-gradient(135deg, #172554, #581c87 52%, #831843);
+      color: white;
+      text-align: center;
+      padding: 80px 0;
+    }
+
+    .contact h2 {
+      font-size: 2.5rem;
+      margin: 0 0 12px;
+    }
+
+    .contact p {
+      color: #dbeafe;
+      margin-bottom: 22px;
+    }
+
+    .contact-form {
+      max-width: 700px;
+      margin: 30px auto 0;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      padding: 28px;
+      text-align: left;
+    }
+
+    .contact-form label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #e2e8f0;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      margin-bottom: 18px;
+      font-size: 1rem;
+    }
+
+    .contact-form textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .contact-form button {
+      border: none;
+      background: #2563eb;
+      color: white;
+      padding: 14px 26px;
+      border-radius: 999px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .form-error {
+      display: none;
+      margin: 0 0 18px;
+      padding: 12px 14px;
+      border-left: 4px solid #dc2626;
+      background: #fef2f2;
+      color: #991b1b;
+      border-radius: 6px;
+    }
+
+    footer {
+      background: #020817;
+      color: #cbd5e1;
+      text-align: center;
+      padding: 18px 0;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 760px) {
+      .hero-box,
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        display: none;
+      }
+
+      h1 {
+        font-size: 2.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-flow" aria-hidden="true">
+    <div class="glass-flow flow-one">
+      <span>@manu_official-404</span>
+      <span>@manu_official-404</span>
+      <span>@manu_official-404</span>
+    </div>
+    <div class="glass-flow flow-two">
+      <span>MANU INFLUENCER</span>
+      <span>MANU INFLUENCER</span>
+      <span>MANU INFLUENCER</span>
+    </div>
+  </div>
+  <header>
+    <div class="container nav">
+      <div class="logo">Manu <span>Influencer</span></div>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a href="https://www.instagram.com/manu_official-404/" class="btn btn-primary" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </header>
+
+  <section class="hero" id="home">
+    <div class="container hero-box">
+      <div>
+        <h1>Manu <span class="highlight">Influencer</span></h1>
+        <p class="subtitle">
+          Manu is a Guntakal-based content creator who turns real moments into polished videos.
+          He plans the spot shoot, captures the story, edits the footage, and delivers content ready to share.
+        </p>
+        <div class="btns">
+          <a href="https://www.instagram.com/manu_official-404/" class="btn btn-primary" target="_blank" rel="noopener">Follow on Instagram</a>
+          <a href="#about" class="btn btn-secondary">About Manu</a>
+        </div>
+      </div>
+
+      <div class="card interactive-card" id="creator-card">
+        <span class="color-orbit cyan"></span>
+        <span class="color-orbit orange"></span>
+        <span class="color-orbit pink"></span>
+        <span class="color-core"></span>
+        <img
+          class="creator-image"
+          src="https://i.ibb.co/HWRq88D/Whats-App-Image-2026-09-18-at-3-33-41-PM.jpg"
+          alt="Manu's uploaded creator image"
+        />
+        <h3>Connect with Manu</h3>
+        <ul>
+          <li>Local creator from Guntakal</li>
+          <li>Spot shoot planning and filming</li>
+          <li>Professional video editing</li>
+          <li>Ready-to-post content delivery</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="services">
+    <div class="container">
+      <h2>Promotion Options</h2>
+      <p>From the first shot to the final export, Manu creates content with a practical local touch and a polished finish.</p>
+
+      <div class="features">
+        <div class="feature">
+          <div class="feature-icon">AI</div>
+          <h3>Instagram Reel</h3>
+          <p>Real example: Manu plans a location shoot, captures a product in use, and delivers a polished 30-second Reel.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">⚙</div>
+          <h3>Instagram Story</h3>
+          <p>Real example: Manu films quick behind-the-scenes clips, adds a short review, and publishes a clear Story sequence.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">◎</div>
+          <h3>Sponsored Post</h3>
+          <p>Real example: Manu works with a local business to shoot, edit, and deliver a branded video with a natural voice.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="container">
+      <h2>About Manu</h2>
+      <p>
+        Manu is a content creator from Guntakal who brings a hands-on approach to every project. He prepares spot shoots,
+        records the right moments, edits the footage carefully, and gives clients a finished video they can confidently share.
+        Follow his official Instagram account to see his latest work.
+      </p>
+      <div class="instagram-profile">
+        <div>
+          <strong>Instagram profile</strong>
+          <a class="instagram-handle" href="https://www.instagram.com/manu_official-404/" target="_blank" rel="noopener">@manu_official-404 | Guntakal content creator</a>
+        </div>
+        <a class="instagram-link" href="https://www.instagram.com/manu_official-404/" target="_blank" rel="noopener">View profile</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="container">
+      <h2>Connect with Manu</h2>
+      <p>Send a message for spot shoots, editing work, influencer promotions, or brand collaborations.</p>
+
+      <form class="contact-form" action="/submit" method="post">
+        <p class="form-error" id="form-error" role="alert"></p>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required />
+
+        <label for="phone">Mobile number</label>
+        <input type="tel" id="phone" name="phone" placeholder="Enter a 10-digit mobile number" pattern="(?:\+?91[\s-]?)?[6-9]\d{9}" inputmode="numeric" required />
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Write your message" required></textarea>
+
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 Manu Influencer. All rights reserved.
+  </footer>
+
+  <script>
+    const formError = document.getElementById('form-error');
+    const errorType = new URLSearchParams(window.location.search).get('error');
+    if (errorType === 'phone') {
+      formError.textContent = 'Please enter a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9.';
+      formError.style.display = 'block';
+    } else if (errorType === 'missing') {
+      formError.textContent = 'Please complete all fields before sending your message.';
+      formError.style.display = 'block';
+    }
+
+    const creatorCard = document.getElementById('creator-card');
+
+    creatorCard.addEventListener('pointermove', (event) => {
+      const bounds = creatorCard.getBoundingClientRect();
+      const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+      const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+      creatorCard.style.transform = `perspective(900px) rotateX(${y * -10}deg) rotateY(${x * 12}deg)`;
+    });
+
+    creatorCard.addEventListener('pointerleave', () => {
+      creatorCard.style.transform = '';
+    });
+  </script>
+</body>
+</html>
