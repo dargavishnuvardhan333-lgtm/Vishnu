@@ -1,4 +1,19 @@
+# Python
 __pycache__/
 *.pyc
-messages.db
+*.pyo
+*.pyd
+.venv/
+venv/
+ENV/
+env/
+
+# Local secrets/database
 .env
+messages.db
+*.db
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/

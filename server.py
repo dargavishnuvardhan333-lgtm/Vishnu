@@ -1,21 +1,18 @@
 from flask import Flask, render_template_string, request, redirect, jsonify, session
 from datetime import datetime
+from pathlib import Path
 import sqlite3
 import re
 
 app = Flask(__name__)
 app.secret_key = 'local-admin-session-key'
-DB_NAME = 'messages.db'
+BASE_DIR = Path(__file__).resolve().parent
+DB_NAME = str(BASE_DIR / 'messages.db')
 ADMIN_PASSWORD = 'manu@2004'
 
-with open('index.html', 'r', encoding='utf-8') as f:
-    page_html = f.read()
-
-with open('admin.html', 'r', encoding='utf-8') as f:
-    admin_html = f.read()
-
-with open('admin_login.html', 'r', encoding='utf-8') as f:
-    admin_login_html = f.read()
+page_html = (BASE_DIR / 'index.html').read_text(encoding='utf-8')
+admin_html = (BASE_DIR / 'admin.html').read_text(encoding='utf-8')
+admin_login_html = (BASE_DIR / 'admin_login.html').read_text(encoding='utf-8')
 
 
 def get_db_connection():
